@@ -1,0 +1,22 @@
+{
+    "name": "craryprimitiveman/php-resque",
+    "description": "PHP port of resque (Workers and Queueing) with PSR-4",
+    "keywords": ["queue", "worker", "resque"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/craryprimitiveman/php-resque/issues",
+        "source": "https://github.com/craryprimitiveman/php-resque"
+    },
+    "authors": [
+        {
+            "name": "harrysun",
+            "email": "sunguangjun@126.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": { "phpresque\\": "" }
+    },
+    "extra": {
+    }
+}
