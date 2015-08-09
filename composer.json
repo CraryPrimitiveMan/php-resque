@@ -1,7 +1,8 @@
 {
     "name": "craryprimitiveman/php-resque",
-    "description": "PHP port of resque (Workers and Queueing) with PSR-4",
-    "keywords": ["queue", "worker", "resque"],
+    "type": "library",
+    "description": "Redis backed library for creating background jobs and processing them later.PHP port of resque (Workers and Queueing) with PSR-4",
+    "keywords": ["queue", "worker", "resque", "job", "background", "redis"],
     "license": "MIT",
     "support": {
         "issues": "https://github.com/craryprimitiveman/php-resque/issues",
@@ -11,11 +12,15 @@
         {
             "name": "harrysun",
             "email": "sunguangjun@126.com"
+        },
+        {
+            "name": "Chris Boulton",
+            "email": "chris@bigcommerce.com"
         }
     ],
     "require": {},
     "autoload": {
-        "psr-4": { "phpresque\\": "" }
+        "psr-4": { "resque\\": "src/" }
     },
     "extra": {
     }
