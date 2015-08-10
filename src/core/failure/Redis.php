@@ -11,7 +11,7 @@ use resque\Resque;
  * @license     http://www.opensource.org/licenses/mit-license.php
  */
 
-class Redis implements Interface
+class Redis implements RedisInterface
 {
     /**
      * Initialize a failed job class and save it (where appropriate).

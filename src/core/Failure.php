@@ -1,6 +1,8 @@
 <?php
 namespace resque\core;
 
+use Exception;
+
 /**
  * Failed Resque job.
  *

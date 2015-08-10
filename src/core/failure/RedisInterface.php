@@ -2,12 +2,12 @@
 namespace resque\core\failure;
 
 /**
- * Interface that all failure backends should implement.
+ * RedisInterface that all failure backends should implement.
  *
  * @author      Chris Boulton <chris@bigcommerce.com>
  * @license     http://www.opensource.org/licenses/mit-license.php
  */
-interface Interface
+interface RedisInterface
 {
     /**
      * Initialize a failed job class and save it (where appropriate).
