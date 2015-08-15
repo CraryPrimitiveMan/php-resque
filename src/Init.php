@@ -89,4 +89,3 @@ class Init
         $worker->work($this->interval);
     }
 }
-

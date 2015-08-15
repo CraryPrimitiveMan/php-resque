@@ -140,5 +140,4 @@ class RedisentCluster
         }
         return $haystack[count($haystack)-1];
     }
-
 }

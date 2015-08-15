@@ -88,12 +88,11 @@ class Job
      */
     public static function reserve($queue)
     {
-        // 出队，拿到最早的job数据
         $payload = Resque::pop($queue);
         if(!is_array($payload)) {
             return false;
         }
-        // 创建一个新的job
+
         return new Job($queue, $payload);
     }
 
@@ -130,7 +129,6 @@ class Job
      */
     public function getArguments()
     {
-        // 获取参数
         if (!isset($this->payload['args'])) {
             return array();
         }
@@ -140,8 +138,8 @@ class Job
 
     /**
      * Get the instantiated object for this job that will be performing work.
-     *
      * @return object Instance of the object that this job belongs to.
+     * @throws Exception
      */
     public function getInstance()
     {
@@ -260,4 +258,3 @@ class Job
         return '(' . implode(' | ', $name) . ')';
     }
 }
-?>

@@ -9,7 +9,6 @@ use resque\core\Worker;
 use resque\core\Stat;
 use resque\core\Job;
 use resque\core\Redis;
-use resque\test\TestCase;
 use resque\test\job\Job as TestJob;
 use resque\test\job\FailingJob;
 use resque\test\job\JobWithSetUp;

@@ -7,7 +7,6 @@ use resque\Resque;
 use resque\core\Worker;
 use resque\core\Stat;
 use resque\core\Job;
-use resque\test\TestCase;
 use resque\test\job\Job as TestJob;
 
 /**

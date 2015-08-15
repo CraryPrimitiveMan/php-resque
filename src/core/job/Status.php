@@ -142,4 +142,3 @@ class Status
         return 'job:' . $this->id . ':status';
     }
 }
-?>

@@ -482,7 +482,6 @@ class Worker
 
     /**
      * Unregister this worker in Redis. (shutdown etc)
-     * 注销掉该worker
      */
     public function unregisterWorker()
     {
@@ -578,4 +577,3 @@ class Worker
         return Stat::get($stat . ':' . $this);
     }
 }
-?>

@@ -112,4 +112,3 @@ class RedisCluster extends RedisentCluster
         }
     }
 }
-?>
