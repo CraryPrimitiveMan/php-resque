@@ -1,6 +1,7 @@
 <?php
 namespace resque\core;
 
+use InvalidArgumentException;
 use resque\Resque;
 use resque\core\job\Status;
 use resque\core\job\DontPerform;
@@ -64,9 +65,10 @@ class Job
         }
 
         $id = md5(uniqid('', true));
+
         Resque::push($queue, array(
             'class' => $class,
-            'args'  => array($args),
+            'args'  => $args,
             'id'    => $id,
         ));
 
@@ -133,7 +135,7 @@ class Job
             return array();
         }
 
-        return $this->payload['args'][0];
+        return $this->payload['args'];
     }
 
     /**

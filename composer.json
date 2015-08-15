@@ -20,7 +20,10 @@
     ],
     "require": {},
     "autoload": {
-        "psr-4": { "resque\\": "src/" }
+        "psr-4": {
+            "resque\\": "src/",
+            "resque\\test\\": "test/"
+        }
     },
     "extra": {
     }

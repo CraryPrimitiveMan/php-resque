@@ -1,8 +1,6 @@
 <?php
 namespace resque\core;
 
-use Exception;
-
 /**
  * Failed Resque job.
  *
@@ -24,7 +22,7 @@ class Failure
      * @param Worker $worker Instance of Resque_Worker that was running this job when it failed.
      * @param string $queue          The name of the queue that this job was fetched from.
      */
-    public static function create($payload, Exception $exception, Worker $worker, $queue)
+    public static function create($payload, \Exception $exception, Worker $worker, $queue)
     {
         $backend = self::getBackend();
         new $backend($payload, $exception, $worker, $queue);

@@ -255,7 +255,7 @@ class Worker
         if(!is_array($queues)) {
             return;
         }
-        // 遍历整个所有队列中的内容，找到一个job
+
         foreach($queues as $queue) {
             $this->log('Checking ' . $queue, self::LOG_VERBOSE);
             $job = Job::reserve($queue);
@@ -264,7 +264,7 @@ class Worker
                 return $job;
             }
         }
-        // 找不到job，返回false
+
         return false;
     }
 
@@ -292,7 +292,6 @@ class Worker
 
     /**
      * Attempt to fork a child process from the parent to run a job in.
-     * fork一个进程去执行job
      * Return values are those of pcntl_fork().
      *
      * @return int -1 if the fork failed, 0 for the forked child, the PID of the child for the parent.
