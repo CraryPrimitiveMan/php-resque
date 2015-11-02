@@ -1,5 +1,5 @@
 <?php
-class Job
+class Job extends \resque\Job
 {
     public function perform()
     {

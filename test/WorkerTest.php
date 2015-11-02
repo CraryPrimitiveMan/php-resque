@@ -69,7 +69,7 @@ class WorkerTest extends TestCase
     {
         $worker = new Worker('*');
         $worker->pauseProcessing();
-        Resque::enqueue('jobs', TestJob::class);
+        Resque::enqueue('jobs', TestJob::className());
         $worker->work(0);
         $worker->work(0);
         $this->assertEquals(0, Stat::get('processed'));
@@ -79,7 +79,7 @@ class WorkerTest extends TestCase
     {
         $worker = new Worker('*');
         $worker->pauseProcessing();
-        Resque::enqueue('jobs', TestJob::class);
+        Resque::enqueue('jobs', TestJob::className());
         $worker->work(0);
         $this->assertEquals(0, Stat::get('processed'));
         $worker->unPauseProcessing();
@@ -148,14 +148,14 @@ class WorkerTest extends TestCase
     {
         $worker = new Worker('queue1');
         $worker->registerWorker();
-        Resque::enqueue('queue2', TestJob::class);
+        Resque::enqueue('queue2', TestJob::className());
 
         $this->assertFalse($worker->reserve());
     }
 
     public function testWorkerClearsItsStatusWhenNotWorking()
     {
-        Resque::enqueue('jobs', TestJob::class);
+        Resque::enqueue('jobs', TestJob::className());
         $worker = new Worker('jobs');
         $job = $worker->reserve();
         $worker->workingOn($job);
@@ -169,7 +169,7 @@ class WorkerTest extends TestCase
         $worker->registerWorker();
 
         $payload = array(
-            'class' => TestJob::class
+            'class' => TestJob::className()
         );
         $job = new Job('jobs', $payload);
         $worker->workingOn($job);
@@ -184,7 +184,7 @@ class WorkerTest extends TestCase
 
     public function testWorkerErasesItsStatsWhenShutdown()
     {
-        Resque::enqueue('jobs', TestJob::class);
+        Resque::enqueue('jobs', TestJob::className());
         Resque::enqueue('jobs', '\resque\test\job\InvalidJob');
 
         $worker = new Worker('jobs');
@@ -248,7 +248,7 @@ class WorkerTest extends TestCase
         $worker->registerWorker();
 
         $payload = array(
-            'class' => TestJob::class
+            'class' => TestJob::className()
         );
         $job = new Job('jobs', $payload);
 

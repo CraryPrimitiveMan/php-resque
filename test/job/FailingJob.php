@@ -1,7 +1,7 @@
 <?php
 namespace resque\test\job;
 
-class FailingJob
+class FailingJob extends \resque\Job
 {
     public function perform()
     {

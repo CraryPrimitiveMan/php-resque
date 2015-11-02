@@ -1,7 +1,7 @@
 <?php
 namespace resque\test\job;
 
-class JobWithSetUp
+class JobWithSetUp extends \resque\Job
 {
     public static $called = false;
     public $args = false;

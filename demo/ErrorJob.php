@@ -1,5 +1,5 @@
 <?php
-class ErrorJob
+class ErrorJob extends \resque\Job
 {
     public function perform()
     {

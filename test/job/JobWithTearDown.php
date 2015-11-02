@@ -1,7 +1,7 @@
 <?php
 namespace resque\test\job;
 
-class JobWithTearDown
+class JobWithTearDown extends \resque\Job
 {
     public static $called = false;
     public $args = false;

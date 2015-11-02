@@ -1,7 +1,7 @@
 <?php
 namespace resque\test\job;
 
-class JobWithoutPerformMethod
+class JobWithoutPerformMethod extends \resque\Job
 {
 
 }

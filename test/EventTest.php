@@ -20,11 +20,11 @@ use resque\test\job\Job as TestJob;
 class EventTest extends TestCase
 {
     private $callbacksHit = array();
-    
+
     public function setUp()
     {
         TestJob::$called = false;
-        
+
         // Register a worker to test with
         $this->worker = new Worker('jobs');
         $this->worker->registerWorker();
@@ -39,7 +39,7 @@ class EventTest extends TestCase
     public function getEventTestJob()
     {
         $payload = array(
-            'class' => TestJob::class,
+            'class' => TestJob::className(),
             'args' => array(
                 'somevar',
             ),
@@ -48,7 +48,7 @@ class EventTest extends TestCase
         $job->worker = $this->worker;
         return $job;
     }
-    
+
     public function eventCallbackProvider()
     {
         return array(
@@ -57,7 +57,7 @@ class EventTest extends TestCase
             array('afterFork', 'afterForkEventCallback'),
         );
     }
-    
+
     /**
      * @dataProvider eventCallbackProvider
      */
@@ -68,17 +68,17 @@ class EventTest extends TestCase
         $job = $this->getEventTestJob();
         $this->worker->perform($job);
         $this->worker->work(0);
-        
+
         $this->assertContains($callback, $this->callbacksHit, $event . ' callback (' . $callback .') was not called');
     }
-    
+
     public function testBeforeForkEventCallbackFires()
     {
         $event = 'beforeFork';
         $callback = 'beforeForkEventCallback';
 
         Event::listen($event, array($this, $callback));
-        Resque::enqueue('jobs', TestJob::class, array(
+        Resque::enqueue('jobs', TestJob::className(), array(
             'somevar'
         ));
         $this->worker->work(0);
@@ -96,16 +96,16 @@ class EventTest extends TestCase
         $this->assertContains($callback, $this->callbacksHit, $callback . ' callback was not called');
         $this->assertFalse(TestJob::$called, 'Job was still performed though DontPerform was thrown');
     }
-    
+
     public function testAfterEnqueueEventCallbackFires()
     {
         $callback = 'afterEnqueueEventCallback';
         $event = 'afterEnqueue';
-    
+
         Event::listen($event, array($this, $callback));
-        Resque::enqueue('jobs', TestJob::class, array(
+        Resque::enqueue('jobs', TestJob::className(), array(
             'somevar'
-        )); 
+        ));
         $this->assertContains($callback, $this->callbacksHit, $event . ' callback (' . $callback .') was not called');
     }
 
@@ -121,18 +121,18 @@ class EventTest extends TestCase
         $this->worker->perform($job);
         $this->worker->work(0);
 
-        $this->assertNotContains($callback, $this->callbacksHit, 
+        $this->assertNotContains($callback, $this->callbacksHit,
             $event . ' callback (' . $callback .') was called though Event::stopListening was called'
         );
     }
 
-    
+
     public function beforePerformEventDontPerformCallback($instance)
     {
         $this->callbacksHit[] = __FUNCTION__;
         throw new DontPerform;
     }
-    
+
     public function assertValidEventCallback($function, $job)
     {
         $this->callbacksHit[] = $function;
@@ -142,21 +142,21 @@ class EventTest extends TestCase
         $args = $job->getArguments();
         $this->assertEquals($args[0], 'somevar');
     }
-    
+
     public function afterEnqueueEventCallback($class, $args)
     {
         $this->callbacksHit[] = __FUNCTION__;
-        $this->assertEquals(TestJob::class, $class);
+        $this->assertEquals(TestJob::className(), $class);
         $this->assertEquals(array(
             'somevar',
         ), $args);
     }
-    
+
     public function beforePerformEventCallback($job)
     {
         $this->assertValidEventCallback(__FUNCTION__, $job);
     }
-    
+
     public function afterPerformEventCallback($job)
     {
         $this->assertValidEventCallback(__FUNCTION__, $job);
@@ -166,7 +166,7 @@ class EventTest extends TestCase
     {
         $this->assertValidEventCallback(__FUNCTION__, $job);
     }
-    
+
     public function afterForkEventCallback($job)
     {
         $this->assertValidEventCallback(__FUNCTION__, $job);
