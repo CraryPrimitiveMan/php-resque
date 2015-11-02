@@ -18,7 +18,10 @@
             "email": "chris@bigcommerce.com"
         }
     ],
-    "require": {},
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0"
+    },
     "autoload": {
         "psr-4": {
             "resque\\": "src/",

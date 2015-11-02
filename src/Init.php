@@ -1,7 +1,7 @@
 <?php
 namespace resque;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../autoload.php';
 
 use resque\core\Worker;
 
@@ -31,7 +31,7 @@ class Init
      */
     public $logLevel = Worker::LOG_NONE;
     /**
-     * Interval time of worker execute 
+     * Interval time of worker execute
      * @var int
      */
     public $interval = 5;
@@ -54,7 +54,7 @@ class Init
         if(empty($this->queues)) {
             die('Set queues var containing the list of queues to work.' . PHP_EOL);
         }
-        
+
         Resque::setBackend($this->redisBackend);
 
         if($this->count > 1) {

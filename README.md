@@ -5,5 +5,4 @@
 [![Latest Unstable Version](https://poser.pugx.org/craryprimitiveman/php-resque/v/unstable)](//packagist.org/packages/craryprimitiveman/php-resque)
 [![Total Downloads](https://poser.pugx.org/craryprimitiveman/php-resque/downloads)](https://packagist.org/packages/craryprimitiveman/php-resque)
 
-PHP port of resque (Workers and Queueing) with PSR-2
-
+PHP port of resque (Workers and Queueing) with PSR-4

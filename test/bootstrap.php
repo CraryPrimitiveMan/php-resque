@@ -13,7 +13,7 @@ define('REDIS_CONF', TEST_MISC . '/redis.conf');
 // Change to the directory this file lives in. This is important, due to
 // how we'll be running redis.
 
-require_once CWD . '/../vendor/autoload.php';
+require_once CWD . '/../autoload.php';
 
 use resque\Resque;
 
@@ -55,7 +55,7 @@ function killRedis($pid)
     if (file_exists($pidFile)) {
         $pid = trim(file_get_contents($pidFile));
         posix_kill((int) $pid, 9);
-    
+
         if(is_file($pidFile)) {
             unlink($pidFile);
         }
