@@ -31,7 +31,7 @@ if(!empty($INTERVAL)) {
 
 $COUNT = getenv('COUNT');
 if(!empty($COUNT) && $COUNT > 1) {
-    $$init->count = $COUNT;
+    $init->count = $COUNT;
 }
 
 $PIDFILE = getenv('PIDFILE');
