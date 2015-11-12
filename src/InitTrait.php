@@ -6,14 +6,14 @@ require_once __DIR__ . '/../autoload.php';
 use resque\core\Worker;
 
 /**
- * Class Init, a init file for worker
+ * InitTrait, a init file for worker
  * @author Harry Sun <sunguangjun@126.com>
  * @copyright 2015 Harry Sun <sunguangjun@126.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  * @package resque
  */
 
-class Init
+trait InitTrait
 {
     /**
      * Job queues list
@@ -26,8 +26,8 @@ class Init
      */
     public $redisBackend = 'localhost:6379';
     /**
-     * Redis server conf
-     * @var string/array
+     * Redis server database
+     * @var int
      */
     public $database = 0;
     /**
