@@ -26,6 +26,11 @@ class Init
      */
     public $redisBackend = 'localhost:6379';
     /**
+     * Redis server conf
+     * @var string/array
+     */
+    public $database = 0;
+    /**
      * Log level of worker
      * @var int
      */
@@ -51,18 +56,18 @@ class Init
      */
     public function run()
     {
-        if(empty($this->queues)) {
+        if (empty($this->queues)) {
             die('Set queues var containing the list of queues to work.' . PHP_EOL);
         }
 
-        Resque::setBackend($this->redisBackend);
+        Resque::setBackend($this->redisBackend, $this->database);
 
-        if($this->count > 1) {
-            for($i = 0; $i < $this->count; ++$i) {
+        if ($this->count > 1) {
+            for ($i = 0; $i < $this->count; ++$i) {
                 $pid = pcntl_fork();
-                if($pid == -1) {
+                if ($pid == -1) {
                     die('Could not fork worker ' . $i . PHP_EOL);
-                } else if(!$pid) {
+                } else if (!$pid) {
                     // Child, start the worker
                     $this->_startWorker();
                     break;
