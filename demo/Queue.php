@@ -8,6 +8,7 @@ if(empty($argv[1])) {
 }
 
 date_default_timezone_set('GMT');
+// Resque::setBackend('127.0.0.1:6379', 0, 'your password');
 Resque::setBackend('127.0.0.1:6379');
 
 $args = array(

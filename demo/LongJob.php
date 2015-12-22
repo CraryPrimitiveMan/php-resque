@@ -1,5 +1,7 @@
 <?php
-class LongJob extends \resque\Job
+use resque\BaseJob;
+
+class LongJob extends BaseJob
 {
     public function perform()
     {

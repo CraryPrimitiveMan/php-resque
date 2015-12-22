@@ -10,4 +10,5 @@ require __DIR__ . '/ResquePlugin.php';
 use resque\Init;
 
 $init = new Init();
+// $init->password = 'your password';
 $init->run();

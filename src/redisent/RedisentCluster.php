@@ -74,11 +74,13 @@ class RedisentCluster
      * Creates a Redisent interface to a cluster of Redis servers
      * @param array $servers The Redis servers in the cluster. Each server should be in the format array('host' => hostname, 'port' => port)
      */
-    function __construct($servers) {
+    public function __construct($servers)
+    {
         $this->ring = array();
         $this->aliases = array();
         foreach ($servers as $alias => $server) {
-            $this->redisents[] = new Redisent($server['host'], $server['port']);
+            $server['password'] = isset($server['password']) ? $server['password'] : null;
+            $this->redisents[] = new Redisent($server['host'], $server['port'], $server['password']);
             if (is_string($alias)) {
                 $this->aliases[$alias] = $this->redisents[count($this->redisents)-1];
             }
@@ -95,7 +97,8 @@ class RedisentCluster
      * @param string $alias The alias of the Redis server
      * @return Redisent The Redisent object attached to the Redis server
      */
-    function to($alias) {
+    public function to($alias)
+    {
         if (isset($this->aliases[$alias])) {
             return $this->aliases[$alias];
         } else {
@@ -104,8 +107,8 @@ class RedisentCluster
     }
 
     /* Execute a Redis command on the cluster */
-    function __call($name, $args) {
-
+    public function __call($name, $args)
+    {
         /* Pick a server node to send the command to */
         $name = strtoupper($name);
         if (!in_array($name, $this->dont_hash)) {
@@ -124,7 +127,8 @@ class RedisentCluster
      * @param integer $needle The hash value of the Redis command
      * @return Redisent The Redisent object associated with the hash
      */
-    private function nextNode($needle) {
+    private function nextNode($needle)
+    {
         $haystack = $this->nodes;
         while (count($haystack) > 2) {
             $try = floor(count($haystack) / 2);

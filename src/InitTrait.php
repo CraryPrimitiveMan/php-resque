@@ -31,6 +31,11 @@ trait InitTrait
      */
     public $database = 0;
     /**
+     * Redis server password
+     * @var int
+     */
+    public $password = null;
+    /**
      * Log level of worker
      * @var int
      */
@@ -60,14 +65,14 @@ trait InitTrait
             die('Set queues var containing the list of queues to work.' . PHP_EOL);
         }
 
-        Resque::setBackend($this->redisBackend, $this->database);
+        Resque::setBackend($this->redisBackend, $this->database, $this->password);
 
         if ($this->count > 1) {
             for ($i = 0; $i < $this->count; ++$i) {
                 $pid = pcntl_fork();
                 if ($pid == -1) {
                     die('Could not fork worker ' . $i . PHP_EOL);
-                } else if (!$pid) {
+                } elseif (!$pid) {
                     // Child, start the worker
                     $this->_startWorker();
                     break;

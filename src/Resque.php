@@ -35,6 +35,11 @@ class Resque
     protected static $redisDatabase = 0;
 
     /**
+     * @var string Password of Redis.
+     */
+    protected static $redisPassword = null;
+
+    /**
      * @var int PID of current process. Used to detect changes when forking
      *  and implement "thread" safety to avoid race conditions.
      */
@@ -47,10 +52,11 @@ class Resque
      *                      a nested array of servers with host/port pairs.
      * @param int $database
      */
-    public static function setBackend($server, $database = 0)
+    public static function setBackend($server, $database = 0, $password = null)
     {
         self::$redisServer   = $server;
         self::$redisDatabase = $database;
+        self::$redisPassword = $password;
         self::$redis         = null;
     }
 
@@ -88,6 +94,7 @@ class Resque
                 $port = null;
             }
             self::$redis = new Redis($host, $port);
+            $result = self::$redis->auth(self::$redisPassword);
         }
 
         self::$redis->select(self::$redisDatabase);

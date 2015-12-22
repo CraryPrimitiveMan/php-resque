@@ -41,29 +41,43 @@ class Redisent
     public $port;
 
     /**
+     * Password of the Redis server
+     * @var string
+     * @access public
+     */
+    public $password;
+
+    /**
      * Creates a Redisent connection to the Redis server on host {@link $host} and port {@link $port}.
      * @param string $host The hostname of the Redis server
      * @param integer $port The port number of the Redis server
      */
-    function __construct($host, $port = 6379) {
+    public function __construct($host, $port = 6379, $password = null)
+    {
         $this->host = $host;
         $this->port = $port;
+        $this->password = $password;
         $this->establishConnection();
     }
 
-    function establishConnection() {
+    public function establishConnection()
+    {
         $this->__sock = fsockopen($this->host, $this->port, $errno, $errstr);
         if (!$this->__sock) {
             throw new Exception("{$errno} - {$errstr}");
         }
+        if (!empty($this->password)) {
+            $this->auth($this->password);
+        }
     }
 
-    function __destruct() {
+    public function __destruct()
+    {
         fclose($this->__sock);
     }
 
-    function __call($name, $args) {
-
+    public function __call($name, $args)
+    {
         /* Build the Redis unified protocol command */
         array_unshift($args, strtoupper($name));
         $command = sprintf('*%d%s%s%s', count($args), CRLF, implode(array_map(array($this, 'formatArgument'), $args), CRLF), CRLF);
@@ -114,8 +128,7 @@ class Redisent
                     $size = substr($bulk_head, 1);
                     if ($size == '-1') {
                         $response[] = null;
-                    }
-                    else {
+                    } else {
                         $read = 0;
                         $block = "";
                         do {
@@ -140,7 +153,8 @@ class Redisent
         return $response;
     }
 
-    private function formatArgument($arg) {
+    private function formatArgument($arg)
+    {
         return sprintf('$%d%s%s', strlen($arg), CRLF, $arg);
     }
 }

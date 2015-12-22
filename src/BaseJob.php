@@ -6,7 +6,7 @@ namespace resque;
  *
  * @author Harry Sun <sunguangjun@126.com>
  */
-class Job
+class BaseJob
 {
     /**
      * Returns the fully qualified name of this class.

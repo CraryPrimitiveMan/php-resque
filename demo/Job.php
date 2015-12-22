@@ -1,9 +1,11 @@
 <?php
-class Job extends \resque\Job
+use resque\BaseJob;
+
+class Job extends BaseJob
 {
     public function perform()
     {
-        sleep(120);
+        // sleep(120);
         fwrite(STDOUT, 'Hello!');
     }
 }
