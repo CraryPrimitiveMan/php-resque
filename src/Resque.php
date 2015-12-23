@@ -94,7 +94,9 @@ class Resque
                 $port = null;
             }
             self::$redis = new Redis($host, $port);
-            $result = self::$redis->auth(self::$redisPassword);
+            if (!empty(self::$redisPassword)) {
+                self::$redis->auth(self::$redisPassword);
+            }
         }
 
         self::$redis->select(self::$redisDatabase);
